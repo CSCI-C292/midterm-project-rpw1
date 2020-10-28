@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/spike_tiles.tres" type="TileSet" id=1]
+
+[node name="HazardTiles" type="TileMap"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 70, 70 )
+cell_quadrant_size = 35
+format = 1
+tile_data = PoolIntArray( -458748, 2, 0, -393212, 2, 0, -327670, 3, 0, 196624, 1, 0 )

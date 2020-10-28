@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/one_way_tiles.tres" type="TileSet" id=1]
+
+[node name="OneWayTiles" type="TileMap"]
+modulate = Color( 0.756863, 0.756863, 0.756863, 1 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 70, 70 )
+cell_quadrant_size = 35
+format = 1
+tile_data = PoolIntArray( -262123, 2, 0, -262122, 2, 0, -196587, 4, 0, -196586, 4, 0, -131051, 4, 0, -131050, 4, 0, -65515, 4, 0, -65514, 4, 0, 21, 4, 0, 22, 4, 0, 65557, 4, 0, 65558, 4, 0, 131093, 2, 0, 131094, 2, 0, 196629, 4, 0, 196630, 4, 0 )

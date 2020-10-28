@@ -1,22 +1,68 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://externalAssetFiles/back.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/world.tres" type="TileSet" id=3]
+[ext_resource path="res://scenes/SolidTiles.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/OneWayTiles.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/spike_tiles.tres" type="TileSet" id=6]
+[ext_resource path="res://scenes/FallZone.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/EndOfLevel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/LevelCamera.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/HazardTiles.tscn" type="PackedScene" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 70, 35 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 70, 35 )
 
 [node name="Main" type="Node2D"]
 
 [node name="Background" type="Sprite" parent="."]
+visible = false
 position = Vector2( 517.875, 305.817 )
 scale = Vector2( 0.519157, 0.423047 )
 texture = ExtResource( 1 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 535.287, 354.232 )
+[node name="OneWayTiles" parent="." instance=ExtResource( 5 )]
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 3 )
-cell_size = Vector2( 70, 70 )
-cell_quadrant_size = 35
-format = 1
-tile_data = PoolIntArray( 65537, 2, 0, 65546, 2, 0, 65549, 2, 0, 131073, 4, 0, 131082, 4, 0, 131085, 4, 0, 196609, 4, 0, 196610, 2, 0, 196611, 5, 0, 196618, 4, 0, 196621, 4, 0, 262145, 4, 0, 262146, 4, 0, 262147, 4, 0, 262148, 5, 0, 262157, 4, 0, 327681, 4, 0, 327682, 4, 0, 327683, 4, 0, 327684, 4, 0, 327685, 5, 0, 327693, 4, 0, 393217, 4, 0, 393218, 4, 0, 393219, 4, 0, 393220, 4, 0, 393221, 4, 0, 393222, 2, 0, 393223, 2, 0, 393224, 2, 0, 393225, 2, 0, 393226, 2, 0, 393227, 2, 0, 393228, 2, 0, 393229, 4, 0 )
+[node name="StaticBody2D" type="StaticBody2D" parent="OneWayTiles"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayTiles/StaticBody2D"]
+position = Vector2( 1540, -245 )
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="OneWayTiles/StaticBody2D"]
+position = Vector2( 1540, 175 )
+shape = SubResource( 2 )
+one_way_collision = true
+
+[node name="SolidTiles" parent="." instance=ExtResource( 3 )]
+tile_data = PoolIntArray( -524288, -1610612734, 0, -524285, -1073741822, 0, -524284, 4, 0, -524283, 4, 0, -524282, 4, 0, -524281, 4, 0, -524280, 4, 0, -524279, 4, 0, -524278, 4, 0, -524277, 4, 0, -524276, 4, 0, -524275, 4, 0, -524274, 4, 0, -524273, 4, 0, -524272, 4, 0, -524271, 4, 0, -524270, 4, 0, -524269, 4, 0, -524268, 4, 0, -524267, 4, 0, -524266, 4, 0, -524265, 4, 0, -458752, -1610612734, 0, -458749, -1073741822, 0, -458729, 4, 0, -393216, -1610612734, 0, -393213, -1073741822, 0, -393193, 4, 0, -327680, -1610612734, 0, -327677, -1073741822, 0, -327657, 4, 0, -262144, -1610612734, 0, -262137, 2, 0, -262136, 2, 0, -262135, 2, 0, -262134, 2, 0, -262133, 2, 0, -262132, 2, 0, -262131, 2, 0, -262128, 2, 0, -262127, 2, 0, -262124, 2, 0, -262121, -1073741822, 0, -196608, -1610612734, 0, -196601, -1073741822, 0, -196588, -1610612734, 0, -196585, -1073741822, 0, -131072, 4, 0, -131071, 2, 0, -131070, 2, 0, -131069, 2, 0, -131065, -1073741822, 0, -131052, -1610612734, 0, -131049, -1073741822, 0, -65536, 4, 0, -65529, -1073741822, 0, -65516, -1610612734, 0, -65513, -1073741822, 0, 0, 4, 0, 20, -1610612734, 0, 23, -1073741822, 0, 65536, 4, 0, 65556, -1610612734, 0, 65559, -1073741822, 0, 131072, 4, 0, 131095, -1073741822, 0, 196608, 4, 0, 196616, 6, 0, 196617, 2, 0, 196618, 2, 0, 196631, -1073741822, 0, 262144, 4, 0, 262151, 6, 0, 262152, 4, 0, 262153, 4, 0, 262154, 4, 0, 262158, 2, 0, 262159, 2, 0, 262160, 2, 0, 262161, 2, 0, 262162, 2, 0, 262163, 2, 0, 262164, 2, 0, 262165, 2, 0, 262166, 2, 0, 262167, 4, 0, 327680, 4, 0, 327686, 6, 0, 327687, 4, 0, 327688, 4, 0, 327689, 4, 0, 327690, 4, 0, 327694, 4, 0, 327695, 4, 0, 327696, 4, 0, 327697, 4, 0, 327698, 4, 0, 327699, 4, 0, 327700, 4, 0, 327701, 4, 0, 327702, 4, 0, 327703, 4, 0, 393216, 4, 0, 393221, 6, 0, 393222, 4, 0, 393223, 4, 0, 393224, 4, 0, 393225, 4, 0, 393226, 4, 0, 393230, 4, 0, 393231, 4, 0, 393232, 4, 0, 393233, 4, 0, 393234, 4, 0, 393235, 4, 0, 393236, 4, 0, 393237, 4, 0, 393238, 4, 0, 393239, 4, 0, 458752, 4, 0, 458753, 4, 0, 458754, 4, 0, 458755, 4, 0, 458756, 4, 0, 458757, 4, 0, 458758, 4, 0, 458759, 4, 0, 458760, 4, 0, 458761, 4, 0, 458762, 4, 0, 458766, 4, 0, 458767, 4, 0, 458768, 4, 0, 458769, 4, 0, 458770, 4, 0, 458771, 4, 0, 458772, 4, 0, 458773, 4, 0, 458774, 4, 0, 458775, 4, 0 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 140, -210 )
+_hazard_tile_set = ExtResource( 6 )
+_current_scene_path = "res://scenes/Main.tscn"
+_next_level_scene_path = "res://scenes/Level2.tscn"
+
+[node name="Enemy" parent="." instance=ExtResource( 4 )]
+position = Vector2( 875, 210 )
+
+[node name="LevelCamera" parent="." instance=ExtResource( 9 )]
+
+[node name="FallZone" parent="." instance=ExtResource( 7 )]
+
+[node name="Enemy2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1050, -245 )
+
+[node name="HazardTiles" parent="." instance=ExtResource( 10 )]
+tile_data = PoolIntArray( -458748, 2, 0, -393212, 2, 0, -327676, 2, 0, -327670, 3, 0, -262141, 2, 0, -196605, 2, 0, 196624, 1, 0 )
+
+[node name="EndOfLevel" parent="." instance=ExtResource( 8 )]
+[connection signal="body_entered" from="FallZone" to="Player" method="_on_FallZone_body_entered"]
+[connection signal="body_entered" from="EndOfLevel" to="Player" method="_on_EndOfLevel_body_entered"]
+
+[editable path="OneWayTiles"]
