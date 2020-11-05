@@ -14,10 +14,13 @@ func _process(delta):
 		self._enemy_animation_sprite.play("movement")
 		move(delta)
 
-func _on_Area2D_body_entered(body):
+# This function emits a signal the eventually restarts the scene if the player touches the enemy.
+func _on_Area2D_body_entered(body) -> void:
 	if body is Player:
 		GameEvents.emit_signal("enemy_touched")
 
+# this function moves the enemy by giving it a pattern of moving up, 
+# pausing, then moving down in specific time intervals
 func move(delta) -> void:
 	if self._stall > 0:
 		self._stall -= delta

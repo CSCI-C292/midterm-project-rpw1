@@ -3,6 +3,7 @@ extends KinematicBody2D
 onready var _player_animation_sprite = get_node("PlayerAnimatedSprite") as AnimatedSprite
 export(Resource) onready var _hazard_tile_set = _hazard_tile_set as TileSet
 # got help with this here: https://www.reddit.com/r/godot/comments/9rh5tt/exporting_a_scene_path/
+# Theses variables are used to reset the current scnene and move to the next scnene
 export(String, FILE, "*.tscn") var _current_scene_path
 export(String, FILE, "*.tscn") var _next_level_scene_path
 
@@ -80,9 +81,11 @@ func _physics_process(delta):
 		self._player_animation_sprite.stop()
 
 		
-func _reset_level():
+# This function resets the level by reseting the entire level scene.
+func _reset_level() -> void:
 	get_tree().change_scene(self._current_scene_path)
 	
+# This function checks if th player is touching an item from the HazardTiles tileset.
 func is_touching_hazardous_tiles() -> bool:
 	for i in get_slide_count():
 		var collider = get_slide_collision(i)
@@ -91,12 +94,14 @@ func is_touching_hazardous_tiles() -> bool:
 	return false
 		
 
-
-func _on_EndOfLevel_body_entered(body):
+# This function checks if the player is touching an area2D at the end of the level.
+# If that is true then it advances the player to the next scene stored in _next_level_scene_path
+func _on_EndOfLevel_body_entered(body) -> void:
 	if body == self:
 		get_tree().change_scene(self._next_level_scene_path)
 
-
-func _on_FallZone_body_entered(body):
+# This function checks if the player enteres the fall zone under the camera view.
+# If true it calls reset level and resets the current scene.
+func _on_FallZone_body_entered(body) -> void:
 	if body == self:
 		_reset_level()
